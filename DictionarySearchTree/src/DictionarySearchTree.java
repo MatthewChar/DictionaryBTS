@@ -16,7 +16,7 @@ public class DictionarySearchTree {
 	private JTextField removeWordText;
 	private JTextField addWordTextField;
 	private JTextField checkWordTextField;
-	private JTextField removeWOrdTextField;
+	private JTextField removeWordTextField;
 	private JButton addWordBtn;
 	private JButton checkWordBtn;
 	private JButton removeWordBtn;
@@ -137,9 +137,9 @@ public class DictionarySearchTree {
 		scrollPane_2.setBounds(302, 174, 124, 59);
 		frame.getContentPane().add(scrollPane_2);
 		
-		removeWOrdTextField = new JTextField();
-		scrollPane_2.setViewportView(removeWOrdTextField);
-		removeWOrdTextField.setColumns(10);
+		removeWordTextField = new JTextField();
+		scrollPane_2.setViewportView(removeWordTextField);
+		removeWordTextField.setColumns(10);
 	}
 	
 	private void performAddWord() {
@@ -198,6 +198,10 @@ public class DictionarySearchTree {
 		
 		String temp = removeWordText.getText().toLowerCase();
 		
+		WordNode tempWordNode = new WordNode(removeWordText.getText().toLowerCase());
+		
+		Boolean isPresent = wez.spellCheck(wez.root,tempWordNode);
+		
 		wez.removeWord(wez.root,temp);
 		
 		//System.out.println("after remove Word");
@@ -206,5 +210,11 @@ public class DictionarySearchTree {
 //		wezTemp.inOrder();
 		
 		assert (wez != wezTemp): "wez is still the same";
+		
+		if (isPresent != true) {
+			removeWordTextField.setText("Sorry the word was not removed");
+		} else {
+			removeWordTextField.setText("Word was removed");
+		}
 	}
 }
